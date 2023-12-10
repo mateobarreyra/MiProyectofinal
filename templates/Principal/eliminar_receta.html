@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block cambio %}
+
+<form method="post">
+    {% csrf_token %}
+    Estas por eliminar la receta: {{ object.titulo}}, estas seguro?
+    <input type="submit" value="Eliminar">
+</form>
+
+{% endblock %}

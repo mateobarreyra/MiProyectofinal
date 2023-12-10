@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block cambio %}
+
+
+<p>el titulo de la receta es: <b>{{receta.titulo}}</b></p>
+<p> subtitulo:{{receta.subtitulo}} </p>
+<p> cuerpo: {{receta.cuerpo}}</p>
+<p>fecha de creacion: {{receta.fecha_de_creacion}}</p>
+<p>autor:{{receta.autor}}</p>
+<p>imagen:
+<img style="height: 300px ; width: 300px"   src="{{receta.imagen.url}}">
+</p>
+
+<p>
+
+    <a href="{% url 'RecetasList' %}">Volver</a>
+</p>
+{% endblock %}

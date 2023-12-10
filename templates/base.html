@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <!-- Parte superior-->
+        {% include 'base/superior.html' %}
+        {% block superior %}
+        {% endblock %}
+
+    <body>
+        <!-- Navegacion-->
+        {% include 'base/navigation.html' %}
+        {% block cambio %}
+        {% endblock %}
+
+        <!-- cabezal-->
+        {% include 'base/header.html' %}
+        {% block head %}
+        {% endblock %}
+        <!-- bajocabezal-->
+        {% include 'base/subheader.html' %}
+        {% block subhead %}
+        {% endblock %}
+
+        <!--Parte de reseñas de la Pagina-->
+        {% include 'base/testimonial.html' %}
+        {% block testimonial %}
+        {% endblock %}
+
+        <!-- Pie de pagina-->
+        {% include 'base/footer.html' %}
+        {% block footer %}
+        {% endblock %}
+

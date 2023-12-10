@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block cambio %}
+
+{% for receta in object_list %}
+
+<p>
+ {{receta.titulo}}
+</p>
+<p>
+ {{receta.subtitulo}}
+</p>
+<p>
+ {{receta.cuerpo}}
+</p>
+<p>
+ {{receta.fecha_de_creacion}}
+</p>
+
+<img style="height: 300px ; width: 300px"   src="{{receta.imagen.url}}">
+
+ <p>
+            <a href="{% url 'RecetaDetail' receta.id %}">Detalles</a>
+        </p>
+
+<p>
+            <a href="{% url 'RecetaEliminar' receta.id %}">Eliminar</a>
+        </p>
+<p>
+            <a href="{% url 'RecetaUpdate' receta.id %}">Actualizar</a>
+        </p>
+
+{% endfor %}
+
+{% endblock %}
+
