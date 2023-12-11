@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block cambio %}
+
+ <div class="avatar">
+        <h2>{{user.get_username }}</h2>
+        <p><b>Nombre y Apellido:</b> {{user.get_full_name}}</p>
+        <p><b>Email:</b> {{ user.email }}</p>
+        <p><b>Imagen de perfil:</b></p>
+        <img style= "height: 100px" src="{{user.avatar.image.url}}" alt="" >
+    </div>
+</p>
+</div>
+
+<p>
+            <a href="{% url 'Edit' %}">Editar perfil</a>
+        </p>
+
+<p>
+            <a href="{% url 'Edit Avatar' %}">Cambiar/Agregar nueva foto de perfil</a>
+        </p>
+
+<p>
+            <a href="{% url 'cambiar_password' %}">Cambiar Contraseña</a>
+        </p>
+
+
+
+{% endblock %}

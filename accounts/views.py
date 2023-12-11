@@ -1,9 +1,17 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-from django.shortcuts import render,redirect
-from accounts.forms import UserRegisterForm, UserUpdateForm, AvatarUpdateForm
+from django.contrib.auth.views import PasswordChangeView
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views.generic import DetailView
+
+from accounts.forms import UserRegisterForm, UserUpdateForm, AvatarUpdateForm, FormularioCambioPassword
 from accounts.models import Avatar
+
+class DetalleUsuario(DetailView):
+    model = Avatar
+    template_name = "accounts/detalle_usuario.html"
 
 
 def login_request(request):
@@ -21,7 +29,7 @@ def login_request(request):
             if user:
                 login(request, user)
 
-        return redirect('RecetasList')
+        return redirect('base')
     form = AuthenticationForm()
     contexto = {
         "form": form
@@ -31,12 +39,11 @@ def login_request(request):
 
 def register_request(request):
     if request.method == "POST":
-        #form = UserCreationForm(request.POST)
         form = UserRegisterForm(request.POST)
 
         if form.is_valid():
             form.save()
-            return redirect("RecetasList")
+            return redirect("base")
 
     form = UserRegisterForm()
     contexto = {
@@ -44,9 +51,7 @@ def register_request(request):
     }
     return render(request, "accounts/register.html", contexto)
 
-
 @login_required
-
 def editar_request(request):
     user = request.user
     if request.method == "POST":
@@ -65,6 +70,12 @@ def editar_request(request):
     }
     return render(request, "accounts/register.html", contexto)
 
+
+
+class CambioPassword(PasswordChangeView):
+    form_class = FormularioCambioPassword
+    template_name = 'accounts/passwordCambio.html'
+    success_url = reverse_lazy('exitoso')
 
 
 @login_required
