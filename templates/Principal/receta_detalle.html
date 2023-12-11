@@ -2,15 +2,36 @@
 
 {% block cambio %}
 
-
-<p>el titulo de la receta es: <b>{{receta.titulo}}</b></p>
-<p> subtitulo:{{receta.subtitulo}} </p>
-<p> cuerpo: {{receta.cuerpo}}</p>
-<p>fecha de creacion: {{receta.fecha_de_creacion}}</p>
-<p>autor:{{receta.autor}}</p>
-<p>imagen:
-<img style="height: 300px ; width: 300px"   src="{{receta.imagen.url}}">
+ <div class="receta">
+        <h2>{{ receta.titulo }}</h2>
+        <p><b>Subtítulo:</b> {{ receta.subtitulo }}</p>
+        <p><b>Cuerpo:</b> {{ receta.cuerpo }}</p>
+        <p><b>Fecha de Creación:</b> {{ receta.fecha_de_creacion }}</p>
+        <p><b>Autor:</b> {{ receta.autor }}</p>
+        <p><b>Imagen:</b></p>
+        <img style="height: 300px; width: 300px;" src="{{ receta.imagen.url }}" alt="{{ receta.titulo }}">
+    </div>
 </p>
+</div>
+<br>
+<div class="container">
+    <h4>Comentarios:</h4>
+    <br>
+    <div class="container">
+    {% if not receta.comentarios.all %}
+        No han comentado este instrumento
+    {% else %}
+        {% for comentario in receta.comentarios.all %}
+        <p><strong>{{comentario.nombre}}</strong></p>
+        <p>{{comentario.mensaje}}</p>
+        <p><small>{{comentario.fechaComentario}}</small></p>
+        <hr>
+        {% endfor %}
+    {% endif %}
+    <a href="{% url 'comentario' pk=receta.pk %}">Agrega un Comentario</a>
+    </div>
+</div>
+<br>
 
 <p>
 
