@@ -4,10 +4,33 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView,DetailView
 from django.http import HttpResponse
 
-from Principal.forms import FormularioComentario
+from Principal.forms import FormularioComentario, BusquedaRecetaForm
 from Principal.models import Receta, Comentario
 
 
+
+def busqueda_Receta(request):
+    if request.method == 'GET':
+        form = BusquedaRecetaForm(request.GET)
+        if form.is_valid():
+            titulo = form.cleaned_data['titulo']
+            recetas = Receta.objects.filter(titulo__icontains=titulo)
+
+            contexto = {
+                'titulo': recetas,
+                'form': form,
+            }
+
+            return render(request, 'Principal/recetasencontradas.html', contexto)
+
+    else:
+        form = BusquedaRecetaForm()
+
+    contexto = {
+        'form': form,
+    }
+
+    return render(request, 'Principal/recetasencontradas.html', contexto)
 class CrearReceta(LoginRequiredMixin, CreateView):
     model = Receta
     template_name = "Principal/crear_receta.html"
@@ -42,6 +65,10 @@ class RecetaEliminar(DeleteView):
 def show_html(request):
     contexto={}
     return render(request, template_name='base.html', context=contexto)
+
+def show_aboutme(request):
+    contexto={ }
+    return render(request, template_name='Principal/aboutme.html', context=contexto)
 
 
 

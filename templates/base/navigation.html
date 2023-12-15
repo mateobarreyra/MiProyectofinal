@@ -1,7 +1,7 @@
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
         <a class="navbar-brand" href="{% url 'RecetasList' %}">Recetas</a>
-        <a class="navbar-brand" href="#!">Buscar Recetas</a>
+        <a class="navbar-brand" href="{% url 'encontrar_receta' %}">Buscar Recetas</a>
         <a class="navbar-brand" href="{% url 'RecetaCreate' %}">Crear Receta</a>
         {% if user.is_authenticated %}
         <a class="navbar-brand" href="{% url 'UserDetail' user.id%}"><h5> {{user.get_username}} </h5></a>

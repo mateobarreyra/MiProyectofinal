@@ -17,4 +17,7 @@ class FormularioComentario(forms.ModelForm):
             'mensaje': forms.Textarea(attrs={'class': 'form-control'}),
         }
 
+class BusquedaRecetaForm(forms.Form):
+    titulo= forms.CharField(label="Ingrese titulo de receta a buscar",max_length=50)
+
 

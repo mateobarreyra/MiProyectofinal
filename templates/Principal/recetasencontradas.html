@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block cambio %}
+<form method="get" action="{% url 'encontrar_receta' %}">
+    {{ form.as_p }}
+    <button type="submit">Buscar</button>
+</form>
+
+{% if titulo %}
+<section class="testimonials text-center bg-light">
+            <div class="container">
+                <div>
+                <h2 class="mb-5">Resultados de la búsqueda:</h2>
+                {% for receta in titulo %}
+                <div class="col-lg-4">
+                        <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                            <img class="img-fluid rounded-circle mb-3" src="{{receta.imagen.url}}" alt="..." />
+                            <h5>{{receta.titulo}}</h5>
+                            <p class="font-weight-light mb-0">{{receta.subtitulo}}</p>
+                            <p>
+                            <a href="{% url 'RecetaDetail' receta.id %}">Ver mas...</a>
+                            </p>
+
+                            {% if  user.get_username == receta.autor.username  %}
+                            <p>
+                                <a href="{% url 'RecetaEliminar' receta.id %}">Eliminar</a>
+                            </p>
+                            <p>
+                                <a href="{% url 'RecetaUpdate' receta.id %}">Actualizar</a>
+                            </p>
+                           {% endif %}
+
+                        </div>
+                    </div>
+                 {% endfor %}
+            </div>
+</section>
+{% endif %}
+{% endblock %}
