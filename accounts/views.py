@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import User
 from django.contrib.auth.views import PasswordChangeView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -10,7 +11,7 @@ from accounts.forms import UserRegisterForm, UserUpdateForm, AvatarUpdateForm, F
 from accounts.models import Avatar
 
 class DetalleUsuario(DetailView):
-    model = Avatar
+    model = User
     template_name = "accounts/detalle_usuario.html"
 
 
@@ -19,7 +20,7 @@ def login_request(request):
         form = AuthenticationForm(request, data=request.POST)
 
         if form.is_valid():
-            data= form.cleaned_data
+            data = form.cleaned_data
 
             usuario = data.get('username')
             contrasenia= data.get('password')

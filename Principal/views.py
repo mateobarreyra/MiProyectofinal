@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView,DetailView
@@ -7,11 +8,15 @@ from Principal.forms import FormularioComentario
 from Principal.models import Receta, Comentario
 
 
-class CrearReceta(CreateView):
+class CrearReceta(LoginRequiredMixin, CreateView):
     model = Receta
     template_name = "Principal/crear_receta.html"
     success_url = "show"
-    fields = "__all__"
+    fields = ["titulo", "subtitulo", "cuerpo", "imagen", "fecha_de_creacion"]
+
+    def form_valid(self, form):
+        form.instance.autor = self.request.user
+        return super().form_valid(form)
 
 class DetalleReceta(DetailView):
     model = Receta

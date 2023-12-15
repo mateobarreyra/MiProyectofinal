@@ -7,7 +7,7 @@
         <p><b>Subtítulo:</b> {{ receta.subtitulo }}</p>
         <p><b>Cuerpo:</b> {{ receta.cuerpo }}</p>
         <p><b>Fecha de Creación:</b> {{ receta.fecha_de_creacion }}</p>
-        <p><b>Autor:</b> {{ receta.autor }}</p>
+        <p><b>Autor:</b> {{ user.get_username}}</p>
         <p><b>Imagen:</b></p>
         <img style="height: 300px; width: 300px;" src="{{ receta.imagen.url }}" alt="{{ receta.titulo }}">
     </div>
@@ -19,7 +19,7 @@
     <br>
     <div class="container">
     {% if not receta.comentarios.all %}
-        No han comentado este instrumento
+        No han comentado esta receta
     {% else %}
         {% for comentario in receta.comentarios.all %}
         <p><strong>{{comentario.nombre}}</strong></p>
